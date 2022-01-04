@@ -30,4 +30,5 @@ const userSchema = new mongoose.Schema({
     weight: { type: Number },
     otherInfo: { type: String },
   },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });

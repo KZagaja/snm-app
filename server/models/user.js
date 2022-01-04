@@ -31,4 +31,22 @@ const userSchema = new mongoose.Schema({
     otherInfo: { type: String },
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  userHistoryLog: [
+    {
+      author: { type: String },
+      authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      content: { type: String },
+      createdAt: { type: Date },
+    },
+  ],
 });
+
+userSchema.plugin(AutoIncrement, { inc_field: 'idx' });
+
+userSchema.virtual('name').get(function () {
+  return this.nickname;
+});
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
